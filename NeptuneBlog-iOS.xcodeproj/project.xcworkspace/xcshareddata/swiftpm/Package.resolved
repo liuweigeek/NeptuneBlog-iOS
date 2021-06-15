@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://gitee.com/liuweigeek/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "f96b619bcb2383b43d898402283924b80e2c4bae",
+          "version": "5.4.3"
+        }
+      },
+      {
+        "package": "Realm",
+        "repositoryURL": "https://gitee.com/liuweigeek/realm-cocoa.git",
+        "state": {
+          "branch": null,
+          "revision": "cde2dfe6adc917835ff1522ae043b75189791faf",
+          "version": "10.8.0"
+        }
+      },
+      {
+        "package": "RealmDatabase",
+        "repositoryURL": "https://github.com/realm/realm-core",
+        "state": {
+          "branch": null,
+          "revision": "d85d071cc25b6f64fabbbebbaaae20f367ef64ae",
+          "version": "11.0.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

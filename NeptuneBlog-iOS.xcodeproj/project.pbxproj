@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,11 @@
 		D21759432677A898006339EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21759422677A898006339EA /* ContentView.swift */; };
 		D21759452677A898006339EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D21759442677A898006339EA /* Assets.xcassets */; };
 		D21759482677A898006339EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D21759472677A898006339EA /* Preview Assets.xcassets */; };
+		D2A2C1FE267868B9008B5FC6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D2A2C1FD267868B9008B5FC6 /* Alamofire */; };
+		D2A2C2012678690D008B5FC6 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D2A2C2002678690D008B5FC6 /* Realm */; };
+		D2A2C2032678690D008B5FC6 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D2A2C2022678690D008B5FC6 /* RealmSwift */; };
+		D2A2C20926786AA6008B5FC6 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A2C20826786AA6008B5FC6 /* Tweet.swift */; };
+		D2A2C20B26786AB9008B5FC6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A2C20A26786AB9008B5FC6 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +25,8 @@
 		D21759442677A898006339EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D21759472677A898006339EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D21759492677A898006339EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2A2C20826786AA6008B5FC6 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		D2A2C20A26786AB9008B5FC6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +34,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A2C2032678690D008B5FC6 /* RealmSwift in Frameworks */,
+				D2A2C2012678690D008B5FC6 /* Realm in Frameworks */,
+				D2A2C1FE267868B9008B5FC6 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +62,10 @@
 		D217593F2677A898006339EA /* NeptuneBlog-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D2A2C204267869CA008B5FC6 /* Model */,
+				D2A2C207267869E4008B5FC6 /* View */,
+				D2A2C206267869DD008B5FC6 /* ViewModel */,
+				D2A2C205267869D3008B5FC6 /* Util */,
 				D21759402677A898006339EA /* NeptuneBlog_iOSApp.swift */,
 				D21759422677A898006339EA /* ContentView.swift */,
 				D21759442677A898006339EA /* Assets.xcassets */,
@@ -67,6 +81,36 @@
 				D21759472677A898006339EA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D2A2C204267869CA008B5FC6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D2A2C20826786AA6008B5FC6 /* Tweet.swift */,
+				D2A2C20A26786AB9008B5FC6 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D2A2C205267869D3008B5FC6 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		D2A2C206267869DD008B5FC6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D2A2C207267869E4008B5FC6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +129,11 @@
 			dependencies = (
 			);
 			name = "NeptuneBlog-iOS";
+			packageProductDependencies = (
+				D2A2C1FD267868B9008B5FC6 /* Alamofire */,
+				D2A2C2002678690D008B5FC6 /* Realm */,
+				D2A2C2022678690D008B5FC6 /* RealmSwift */,
+			);
 			productName = "NeptuneBlog-iOS";
 			productReference = D217593D2677A898006339EA /* NeptuneBlog-iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -112,6 +161,10 @@
 				Base,
 			);
 			mainGroup = D21759342677A898006339EA;
+			packageReferences = (
+				D2A2C1FC267868B9008B5FC6 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				D2A2C1FF2678690D008B5FC6 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+			);
 			productRefGroup = D217593E2677A898006339EA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,6 +191,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A2C20B26786AB9008B5FC6 /* User.swift in Sources */,
+				D2A2C20926786AA6008B5FC6 /* Tweet.swift in Sources */,
 				D21759432677A898006339EA /* ContentView.swift in Sources */,
 				D21759412677A898006339EA /* NeptuneBlog_iOSApp.swift in Sources */,
 			);
@@ -328,6 +383,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D2A2C1FC267868B9008B5FC6 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://gitee.com/liuweigeek/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
+		D2A2C1FF2678690D008B5FC6 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://gitee.com/liuweigeek/realm-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D2A2C1FD267868B9008B5FC6 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2A2C1FC267868B9008B5FC6 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		D2A2C2002678690D008B5FC6 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2A2C1FF2678690D008B5FC6 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		D2A2C2022678690D008B5FC6 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2A2C1FF2678690D008B5FC6 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D21759352677A898006339EA /* Project object */;
 }
