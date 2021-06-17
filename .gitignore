@@ -31,3 +31,4 @@ Thumbs.db
 
 ### AppCode ###
 .idea
+.build
