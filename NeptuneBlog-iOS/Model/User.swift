@@ -17,9 +17,9 @@ struct User: Identifiable, Codable {
     let mediumAvatar: String?
     let largeAvatar: String?
     let password: String?
-    let birthday: Date?
+    let birthday: String?
     let gender: String?
-    let createAt: Date?
+    let createAt: String?
     let lang: String?
     let token: String?
     let followingCount: Int?

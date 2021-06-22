@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @EnvironmentObject var viewModel: AuthViewModel
+    @ObservedObject var userSessionManager = UserSessionManager.shared
     @State private var selectedIndex = 0
 
     var body: some View {
         Group {
-            if viewModel.authUser != nil {
+            if userSessionManager.user != nil {
                 NavigationView {
                     MainTabView(selectedIndex: $selectedIndex)
                             .navigationBarTitle(tabTitle(forIndex: selectedIndex))

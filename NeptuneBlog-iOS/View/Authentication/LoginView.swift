@@ -11,7 +11,7 @@ struct LoginView: View {
 
     @State var username = ""
     @State var password = ""
-    @EnvironmentObject var viewModel: AuthViewModel
+    let viewModel = AuthViewModel.shared
 
     var body: some View {
         NavigationView {

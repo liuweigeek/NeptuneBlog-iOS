@@ -11,7 +11,7 @@ import SwiftUI
 struct NeptuneBlog_iOSApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(AuthViewModel())
+            ContentView()
         }
     }
 }

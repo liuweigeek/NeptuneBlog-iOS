@@ -9,11 +9,13 @@ import SwiftUI
 import Alamofire
 
 class UploadTweetViewModel: ObservableObject {
+    
+    private let session = SessionManager.shared.session
 
     func publishTweet(text: String, successfulCompletion: @escaping (Tweet) -> Void, failureCompletion: @escaping (String) -> Void) {
 
         let param = ["text": text]
-        AF.request(Constant.SERVER_HOST + Constant.API.PUBLISH_TWEET,
+        session.request(Constant.SERVER_HOST + Constant.API.PUBLISH_TWEET,
                 method: .post,
                 parameters: param,
                 encoder: JSONParameterEncoder.default

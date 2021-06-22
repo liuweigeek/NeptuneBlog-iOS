@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Pageable<T> {
+struct Pageable<T: Decodable>: Decodable {
 
     let number: Int
     let size: Int

@@ -10,9 +10,11 @@ import Alamofire
 
 class ProfileViewModel: ObservableObject {
 
+    private let session = SessionManager.shared.session
+
     @Published var user: User?
     @Published var tweets = [Tweet]()
-    @EnvironmentObject var authViewModel: AuthViewModel
+    @ObservedObject var userSessionManager = UserSessionManager.shared
 
     private let userId: Int
 
@@ -27,7 +29,7 @@ class ProfileViewModel: ObservableObject {
 
     func follow(successfulCompletion: @escaping (User) -> Void, failureCompletion: @escaping (String) -> Void) {
         let param = ["userId": userId]
-        AF.request(Constant.SERVER_HOST + Constant.API.FOLLOW_USER,
+        session.request(Constant.SERVER_HOST + Constant.API.FOLLOW_USER,
                 method: .post,
                 parameters: param,
                 encoder: JSONParameterEncoder.default
@@ -45,7 +47,7 @@ class ProfileViewModel: ObservableObject {
     }
 
     func unfollow(successfulCompletion: @escaping (User) -> Void, failureCompletion: @escaping (String) -> Void) {
-        AF.request(Constant.SERVER_HOST + String(format: Constant.API.UNFOLLOW_USER, userId),
+        session.request(Constant.SERVER_HOST + String(format: Constant.API.UNFOLLOW_USER, userId),
                 method: .delete
         ).responseJSON { response in
             switch response.result {
@@ -63,7 +65,7 @@ class ProfileViewModel: ObservableObject {
     func findTweetsByUserId(failureCompletion: @escaping (String) -> Void) {
 
         let param = ["offset": offset, "limit": limit]
-        AF.request(Constant.SERVER_HOST + String(format: Constant.API.FETCH_TWEETS_BY_USER, userId),
+        session.request(Constant.SERVER_HOST + String(format: Constant.API.FETCH_TWEETS_BY_USER, userId),
                 method: .get,
                 parameters: param
         ).responseJSON { response in
@@ -83,7 +85,7 @@ class ProfileViewModel: ObservableObject {
     }
 
     func getUserById(failureCompletion: @escaping (String) -> Void) {
-        AF.request(Constant.SERVER_HOST + String(format: Constant.API.GET_USER_BY_ID, userId),
+        session.request(Constant.SERVER_HOST + String(format: Constant.API.GET_USER_BY_ID, userId),
                 method: .get
         ).responseJSON { response in
             switch response.result {
@@ -102,7 +104,7 @@ class ProfileViewModel: ObservableObject {
 extension ProfileViewModel {
 
     func isSelf() -> Bool {
-        guard let authUser = authViewModel.authUser else {
+        guard let authUser = userSessionManager.user else {
             return false
         }
         return authUser.id == userId

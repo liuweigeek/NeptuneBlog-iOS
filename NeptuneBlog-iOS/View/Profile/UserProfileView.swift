@@ -8,39 +8,39 @@
 import SwiftUI
 
 struct UserProfileView: View {
-
+    
     @State var selectedFilter: TweetFilterOptions = .tweets
     @ObservedObject var viewModel: ProfileViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
-
+    
     init(userId: Int) {
         viewModel = ProfileViewModel(forUser: userId) { errorMsg in
-
+            
         }
     }
-
+    
     var body: some View {
         ScrollView {
             VStack {
                 ProfileHeaderView(viewModel: viewModel)
-                        .padding()
-
+                    .padding()
+                
                 FilterButtonView(selectedOption: $selectedFilter)
-                        .padding(.vertical)
-
+                    .padding(.vertical)
+                
                 ForEach(viewModel.tweets) { tweet in
                     TweetCell(tweet: tweet)
                 }
-                        .padding(.horizontal)
+                .padding(.horizontal)
             }
         }
-                .navigationTitle(viewModel.user?.username ?? "")
-                .navigationBarItems(trailing: Button(action: {
-                    authViewModel.signOut()
-                }, label: {
-                    if viewModel.isSelf() {
-                        Text("Sign Out")
-                    }
-                }))
+        .navigationTitle(viewModel.user?.username ?? "")
+        .navigationBarItems(trailing: Button(action: {
+            authViewModel.signOut()
+        }, label: {
+            if viewModel.isSelf() {
+                Text("Sign Out")
+            }
+        }))
     }
 }

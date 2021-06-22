@@ -10,13 +10,15 @@ import Alamofire
 
 class SearchViewModel: ObservableObject {
 
+    private let session = SessionManager.shared.session
+
     @Published var users = [User]()
     @Published var tweets = [Tweet]()
 
     func searchByKeyword(keyword: String, failureCompletion: @escaping (String) -> Void) {
 
         let param = ["q": keyword]
-        AF.request(Constant.SERVER_HOST + Constant.API.SEARCH,
+        session.request(Constant.SERVER_HOST + Constant.API.SEARCH,
                 method: .get,
                 parameters: param
         ).responseJSON { response in

@@ -10,8 +10,9 @@ import Kingfisher
 
 struct MainTabView: View {
 
+    let authViewModel = AuthViewModel.shared
     @Binding var selectedIndex: Int
-    @EnvironmentObject var viewModel: AuthViewModel
+    @ObservedObject var userSessionManager = UserSessionManager.shared
 
     var body: some View {
         TabView(selection: $selectedIndex) {
@@ -37,9 +38,9 @@ struct MainTabView: View {
                 .navigationBarTitle("Home")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(leading: Button(action: {
-                    viewModel.signOut()
+                    authViewModel.signOut()
                 }, label: {
-                    if let user = viewModel.authUser {
+                    if let user = userSessionManager.user {
                         NavigationLink(
                                 destination: LazyView(UserProfileView(userId: user.id)),
                                 label: {

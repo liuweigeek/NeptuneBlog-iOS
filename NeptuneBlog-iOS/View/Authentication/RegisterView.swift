@@ -18,7 +18,7 @@ struct RegisterView: View {
     @State var image: Image?
 
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @EnvironmentObject var viewModel: AuthViewModel
+    let viewModel = AuthViewModel.shared
 
     func loadImage() {
         guard let selectedImage = selectedUIImage else {

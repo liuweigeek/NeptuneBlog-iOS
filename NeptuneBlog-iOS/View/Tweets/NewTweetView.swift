@@ -13,13 +13,13 @@ struct NewTweetView: View {
     @Binding var isPresented: Bool
     @State var captionText: String = ""
     @ObservedObject var viewModel = UploadTweetViewModel()
-    @EnvironmentObject var authViewModel: AuthViewModel
+    @ObservedObject var userSessionManager = UserSessionManager.shared
 
     var body: some View {
         NavigationView {
             VStack {
                 HStack(alignment: .top) {
-                    if let user = authViewModel.authUser {
+                    if let user = userSessionManager.user {
                         KFImage(URL(string: user.mediumAvatar ?? ""))
                                 .resizable()
                                 .scaledToFill()

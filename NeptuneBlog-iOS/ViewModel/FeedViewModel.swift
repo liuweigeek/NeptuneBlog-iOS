@@ -10,6 +10,8 @@ import Alamofire
 
 class FeedViewModel: ObservableObject {
 
+    private let session = SessionManager.shared.session
+
     @Published var tweets = [Tweet]()
     private var offset = 0
     private var limit = Constant.PAGE_LIMIT
@@ -18,7 +20,7 @@ class FeedViewModel: ObservableObject {
 
         let param = ["offset": offset, "limit": limit]
 
-        AF.request(Constant.SERVER_HOST + Constant.API.FETCH_FOLLOWING_TWEETS,
+        session.request(Constant.SERVER_HOST + Constant.API.FETCH_FOLLOWING_TWEETS,
                 method: .get,
                 parameters: param
         ).responseJSON { response in
