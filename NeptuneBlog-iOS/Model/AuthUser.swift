@@ -10,7 +10,7 @@ import Foundation
 class AuthUser: Codable {
 
     var id: Int
-    var email: String
+    var email: String?
     var username: String
     var name: String
     var smallAvatar: String?
@@ -19,7 +19,7 @@ class AuthUser: Codable {
     var lang: String?
     var token: String
 
-    init(id: Int, email: String, username: String, name: String,
+    init(id: Int, email: String?, username: String, name: String,
          smallAvatar: String?, mediumAvatar: String?, largeAvatar: String?,
          lang: String?, token: String) {
         self.id = id

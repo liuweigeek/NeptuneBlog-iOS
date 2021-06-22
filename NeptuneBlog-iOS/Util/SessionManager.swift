@@ -28,9 +28,8 @@ class JwtTokenAdapter: RequestInterceptor {
     }
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        
-        guard urlRequest.url?.absoluteString.hasSuffix("/auth-server/auth/signIn") == true
-                || urlRequest.url?.absoluteString.hasSuffix("/auth-server/auth/signIn") == true else {
+        if urlRequest.url?.absoluteString.hasSuffix("/auth-server/auth/signIn") == true
+                || urlRequest.url?.absoluteString.hasSuffix("/auth-server/auth/signIn") == true {
             return completion(.success(urlRequest))
         }
         var urlRequest = urlRequest

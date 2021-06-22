@@ -15,11 +15,22 @@ struct TweetDetailView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                KFImage(URL(string: tweet.author.mediumAvatar ?? ""))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 56, height: 56)
-                        .clipShape(Circle())
+                if let mediumAvatar = tweet.author.mediumAvatar {
+                    KFImage(URL(string: mediumAvatar))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 56, height: 56)
+                            .clipShape(Circle())
+                            .padding(.leading)
+                } else {
+                    Image(systemName: "person.fill")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 56, height: 56)
+                            .clipShape(Circle())
+                            .foregroundColor(.gray)
+                            .padding(.leading)
+                }
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(tweet.author.name)

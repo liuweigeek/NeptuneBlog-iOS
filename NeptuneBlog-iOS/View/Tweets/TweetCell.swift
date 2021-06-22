@@ -17,12 +17,23 @@ struct TweetCell: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 12) {
-                KFImage(URL(string: tweet.author.smallAvatar ?? ""))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 56, height: 56)
-                        .clipShape(Circle())
-                        .padding(.leading)
+                if let smallAvatar = tweet.author.smallAvatar {
+                    KFImage(URL(string: smallAvatar))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 56, height: 56)
+                            .clipShape(Circle())
+                            .padding(.leading)
+                } else {
+                    Image(systemName: "person.fill")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 56, height: 56)
+                            .clipShape(Circle())
+                            .foregroundColor(.gray)
+                            .padding(.leading)
+                }
+
 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
@@ -33,7 +44,7 @@ struct TweetCell: View {
                         Text("@\(tweet.author.username) •")
                                 .foregroundColor(.gray)
 
-                        Text("String(tweet.createAt)")
+                        Text(String(tweet.timestampString))
                                 .foregroundColor(.gray)
 
                         Spacer()

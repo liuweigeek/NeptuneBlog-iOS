@@ -15,6 +15,12 @@ class FeedViewModel: ObservableObject {
     @Published var tweets = [Tweet]()
     private var offset = 0
     private var limit = Constant.PAGE_LIMIT
+    
+    init() {
+        fetchFollowingTweets { errMsg in
+            
+        }
+    }
 
     func fetchFollowingTweets(failureCompletion: @escaping (String) -> Void) {
 
@@ -23,16 +29,33 @@ class FeedViewModel: ObservableObject {
         session.request(Constant.SERVER_HOST + Constant.API.FETCH_FOLLOWING_TWEETS,
                 method: .get,
                 parameters: param
-        ).responseJSON { response in
+        )
+        .responseJSON { response in
             switch response.result {
-            case .success:
-                let tweetsRes = response.value as? Pageable<Tweet>
-                for tweet in tweetsRes?.content ?? [Tweet]() {
-                    self.tweets.append(tweet)
+            case .success(let json):
+                if let responseJson = (json as? [String: Any]) {
+                    do {
+                        if response.response?.statusCode == 200 {
+                            let tweetsRes: Pageable<Tweet> = try JsonUtils.from(data: responseJson)
+                            for tweet in tweetsRes.content ?? [Tweet]() {
+                                self.tweets.append(tweet)
+                            }
+                            self.offset += tweetsRes.numberOfElements
+                        } else {
+                            let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
+                            print("fetch tweets failed: \(errorResponse.message)")
+                            failureCompletion(errorResponse.message)
+                        }
+                    } catch {
+                        print("failed to parsing user body: \(error)")
+                        failureCompletion("发送失败")
+                    }
+                } else {
+                    print("failed to parsing user body")
+                    failureCompletion("发送失败")
                 }
-                self.offset += tweetsRes?.numberOfElements ?? 0
             case .failure:
-                failureCompletion((response.value as? ErrorResponse)?.message ?? "发送失败")
+                failureCompletion("发送失败")
             }
         }
     }

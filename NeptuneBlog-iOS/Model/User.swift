@@ -10,7 +10,7 @@ import Foundation
 struct User: Identifiable, Codable {
 
     let id: Int?
-    let email: String
+    let email: String?
     let username: String
     let name: String
     let smallAvatar: String?
@@ -26,7 +26,7 @@ struct User: Identifiable, Codable {
     let followersCount: Int?
     let collections: [String]?
 
-    init(email: String, username: String, name: String, password: String) {
+    init(email: String?, username: String, name: String, password: String) {
         self.email = email
         self.username = username
         self.name = name

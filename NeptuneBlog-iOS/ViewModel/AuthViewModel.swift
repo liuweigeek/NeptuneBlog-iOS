@@ -38,7 +38,7 @@ class AuthViewModel: ObservableObject {
                             failureCompletion(errorResponse.message)
                         }
                     } catch {
-                        print("failed to parsing user body: \(error.localizedDescription)")
+                        print("failed to parsing user body: \(error)")
                         failureCompletion("登录失败")
                     }
                 } else {
@@ -57,40 +57,72 @@ class AuthViewModel: ObservableObject {
                    method: .post,
                    parameters: user,
                    encoder: JSONParameterEncoder.default
-        ).responseJSON { response in
+        )
+        .responseJSON { response in
             switch response.result {
-            case .success:
-                guard let user = response.value as? User else {
-                    return
-                }
-                self.userSessionManager.setCurrentUser(AuthUser(id: user.id!, email: user.email, username: user.username,
-                                                                name: user.name, smallAvatar: user.smallAvatar, mediumAvatar: user.mediumAvatar,
-                                                                largeAvatar: user.largeAvatar, lang: user.lang, token: user.token!))
+            
+            case .success(let json):
+                if let responseJson = (json as? [String: Any]) {
+                    do {
+                        if response.response?.statusCode == 200 {
+                            let user: User = try JsonUtils.from(data: responseJson)
+                            let authUser = AuthUser(id: user.id!, email: user.email, username: user.username,
+                                                    name: user.name, smallAvatar: user.smallAvatar, mediumAvatar: user.mediumAvatar,
+                                                    largeAvatar: user.largeAvatar, lang: user.lang, token: user.token!)
+                            self.userSessionManager.setCurrentUser(authUser)
 
-                guard let profileImage = profileImage else {
-                    return
-                }
-                let imageData = profileImage.pngData()!
+                            guard let profileImage = profileImage else {
+                                return
+                            }
+                            let imageData = profileImage.pngData()!
 
-                AF.upload(multipartFormData: { multipartFormData in
-                    multipartFormData.append(imageData, withName: "file")
-                }, to: Constant.SERVER_HOST + Constant.API.UPLOAD_AVATAR)
-                .responseDecodable(of: User.self) { response in
-                    switch response.result {
-                    case .success:
-                        guard let user = response.value else { return }
-                        self.userSessionManager.setCurrentUser(AuthUser(id: user.id!, email: user.email, username: user.username,
+                            AF.upload(multipartFormData: { multipartFormData in
+                                multipartFormData.append(imageData, withName: "file")
+                            }, to: Constant.SERVER_HOST + Constant.API.UPLOAD_AVATAR)
+                            .responseJSON{ response in
+                                switch response.result {
+                                case .success(let json):
+                                    if let responseJson = (json as? [String: Any]) {
+                                        do {
+                                            if response.response?.statusCode == 200 {
+                                                let user: User = try JsonUtils.from(data: responseJson)
+                                                let authUser = AuthUser(id: user.id!, email: user.email, username: user.username,
                                                                         name: user.name, smallAvatar: user.smallAvatar, mediumAvatar: user.mediumAvatar,
-                                                                        largeAvatar: user.largeAvatar, lang: user.lang, token: user.token!))
-                    case .failure:
-                        failureCompletion("上传头像失败")
+                                                                        largeAvatar: user.largeAvatar, lang: user.lang, token: user.token!)
+                                                self.userSessionManager.setCurrentUser(authUser)
+                                            } else {
+                                                let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
+                                                print("upload avatar failed: \(errorResponse.message)")
+                                                failureCompletion(errorResponse.message)
+                                            }
+                                        } catch {
+                                            print("failed to parsing user body: \(error)")
+                                            failureCompletion("上传头像失败")
+                                        }
+                                    } else {
+                                        print("failed to parsing user body")
+                                        failureCompletion("上传头像失败")
+                                    }
+                                case .failure:
+                                    failureCompletion("上传头像失败")
+                                }
+                            }
+                            
+                        } else {
+                            let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
+                            print("signIn failed: \(errorResponse.message)")
+                            failureCompletion(errorResponse.message)
+                        }
+                    } catch {
+                        print("failed to parsing user body: \(error)")
+                        failureCompletion("注册失败")
                     }
-                }
-                .responseDecodable(of: ErrorResponse.self) { response in
-                    failureCompletion(response.value?.message ?? "上传头像失败")
+                } else {
+                    print("failed to parsing user body")
+                    failureCompletion("注册失败")
                 }
             case .failure:
-                failureCompletion((response.value as? ErrorResponse)?.message ?? "注册失败")
+                failureCompletion("注册失败")
             }
         }
     }
