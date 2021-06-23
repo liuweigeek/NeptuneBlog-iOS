@@ -17,14 +17,14 @@ struct Constant {
         static let UPLOAD_AVATAR = "/user-server/avatar"
 
         static let PUBLISH_TWEET = "/tweet-server/tweets"
-        static let FETCH_TWEETS_BY_USER = "/tweet-server/tweets/user/%s"
+        static let FETCH_TWEETS_BY_USER = "/tweet-server/tweets/user/%d"
         static let FETCH_FOLLOWING_TWEETS = "/tweet-server/tweets/following"
 
-        static let GET_USER_BY_ID = "/user-server/users/%s"
-        static let GET_USER_BY_USERNAME = "/user-server/users/username/%s"
+        static let GET_USER_BY_ID = "/user-server/users/%d"
+        static let GET_USER_BY_USERNAME = "/user-server/users/username/%@"
 
         static let FOLLOW_USER = "/user-server/friendships"
-        static let UNFOLLOW_USER = "/user-server/friendships/%s"
+        static let UNFOLLOW_USER = "/user-server/friendships/%d"
 
         static let SEARCH = "/search-server/search"
     }

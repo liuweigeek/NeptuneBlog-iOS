@@ -9,50 +9,58 @@ import SwiftUI
 import Kingfisher
 
 struct MainTabView: View {
-
+    
     let authViewModel = AuthViewModel.shared
     @Binding var selectedIndex: Int
     @ObservedObject var userSessionManager = UserSessionManager.shared
-
+    
     var body: some View {
         TabView(selection: $selectedIndex) {
             FeedView()
-                    .onTapGesture {
-                        selectedIndex = 0
-                    }
-                    .tabItem {
-                        Image(systemName: "house")
-                        Text("Home")
-                    }
-                    .tag(0)
+                .onTapGesture {
+                    selectedIndex = 0
+                }
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
+                .tag(0)
             SearchView()
-                    .onTapGesture {
-                        selectedIndex = 0
-                    }
-                    .tabItem {
-                        Image(systemName: "magnifyingglass")
-                        Text("Search")
-                    }
-                    .tag(1)
+                .onTapGesture {
+                    selectedIndex = 0
+                }
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                    Text("Search")
+                }
+                .tag(1)
         }
-                .navigationBarTitle("Home")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(leading: Button(action: {
-                    authViewModel.signOut()
-                }, label: {
-                    if let user = userSessionManager.user {
-                        NavigationLink(
-                                destination: LazyView(UserProfileView(userId: user.id)),
-                                label: {
-                                    KFImage(URL(string: user.smallAvatar ?? ""))
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 32, height: 32)
-                                            .clipShape(Circle())
-                                }
-                        )
+        .navigationBarTitle("Home")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(leading: Button(action: {
+            authViewModel.signOut()
+        }, label: {
+            if let user = userSessionManager.user {
+                NavigationLink(
+                    destination: LazyView(UserProfileView(userId: user.id)),
+                    label: {
+                        if let smallAvatar = user.smallAvatar {
+                            KFImage(URL(string: smallAvatar))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 32, height: 32)
+                                .clipShape(Circle())
+                        } else {
+                            Image(systemName: "person.crop.circle")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 32, height: 32)
+                                .clipShape(Circle())
+                        }
                     }
-                }))
+                )
+            }
+        }))
     }
 }
 

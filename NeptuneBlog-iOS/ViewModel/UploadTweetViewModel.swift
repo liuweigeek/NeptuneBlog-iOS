@@ -25,7 +25,7 @@ class UploadTweetViewModel: ObservableObject {
             case .success(let json):
                 if let responseJson = (json as? [String: Any]) {
                     do {
-                        if response.response?.statusCode == 200 {
+                        if response.response?.statusCode == 201 {
                             let tweet: Tweet = try JsonUtils.from(data: responseJson)
                             successfulCompletion(tweet)
                         } else {

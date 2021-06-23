@@ -27,8 +27,12 @@ class SearchViewModel: ObservableObject {
                 if let responseJson = (json as? [String: Any]) {
                     do {
                         if response.response?.statusCode == 200 {
-                            self.users = try JsonUtils.from(data: responseJson["users"])
-                            self.tweets = try JsonUtils.from(data: responseJson["tweets"])
+                            if let usersRes = responseJson["users"] as? [String : Any] {
+                                self.users = try JsonUtils.from(data: usersRes)
+                            }
+                            if let tweetsRes = responseJson["tweets"] as? [String : Any] {
+                                self.tweets = try JsonUtils.from(data: tweetsRes)
+                            }
                         } else {
                             let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
                             print("search failed: \(errorResponse.message)")

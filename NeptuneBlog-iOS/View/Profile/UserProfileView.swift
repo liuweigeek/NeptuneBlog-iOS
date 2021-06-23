@@ -11,7 +11,7 @@ struct UserProfileView: View {
     
     @State var selectedFilter: TweetFilterOptions = .tweets
     @ObservedObject var viewModel: ProfileViewModel
-    @EnvironmentObject var authViewModel: AuthViewModel
+    let authViewModel = AuthViewModel.shared
     
     init(userId: Int) {
         viewModel = ProfileViewModel(forUser: userId) { errorMsg in
