@@ -25,7 +25,7 @@ struct TweetCell: View {
                             .clipShape(Circle())
                             .padding(.leading)
                 } else {
-                    Image(systemName: "person.fill")
+                    Image(systemName: "person.crop.circle")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 56, height: 56)

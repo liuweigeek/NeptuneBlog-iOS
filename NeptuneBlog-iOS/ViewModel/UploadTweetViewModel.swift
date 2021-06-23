@@ -19,15 +19,31 @@ class UploadTweetViewModel: ObservableObject {
                 method: .post,
                 parameters: param,
                 encoder: JSONParameterEncoder.default
-        ).responseJSON { response in
+        )
+        .responseJSON { response in
             switch response.result {
-            case .success:
-                let tweet = response.value as? Tweet
-                successfulCompletion(tweet!)
+            case .success(let json):
+                if let responseJson = (json as? [String: Any]) {
+                    do {
+                        if response.response?.statusCode == 200 {
+                            let tweet: Tweet = try JsonUtils.from(data: responseJson)
+                            successfulCompletion(tweet)
+                        } else {
+                            let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
+                            print("post tweet failed: \(errorResponse.message)")
+                            failureCompletion(errorResponse.message)
+                        }
+                    } catch {
+                        print("failed to parsing tweet body: \(error)")
+                        failureCompletion("发送失败")
+                    }
+                } else {
+                    print("failed to parsing tweet body")
+                    failureCompletion("发送失败")
+                }
             case .failure:
-                failureCompletion((response.value as? ErrorResponse)?.message ?? "发送失败")
+                failureCompletion("发送失败")
             }
         }
     }
-
 }

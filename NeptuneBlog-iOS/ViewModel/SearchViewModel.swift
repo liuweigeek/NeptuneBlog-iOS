@@ -23,16 +23,28 @@ class SearchViewModel: ObservableObject {
                 parameters: param
         ).responseJSON { response in
             switch response.result {
-            case .success:
-                guard  let searchRes = response.value as? [String: Any] else {
-                    return
+            case .success(let json):
+                if let responseJson = (json as? [String: Any]) {
+                    do {
+                        if response.response?.statusCode == 200 {
+                            self.users = try JsonUtils.from(data: responseJson["users"])
+                            self.tweets = try JsonUtils.from(data: responseJson["tweets"])
+                        } else {
+                            let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
+                            print("search failed: \(errorResponse.message)")
+                            failureCompletion(errorResponse.message)
+                        }
+                    } catch {
+                        print("failed to parsing search body: \(error)")
+                        failureCompletion("搜索失败")
+                    }
+                } else {
+                    print("failed to parsing search body")
+                    failureCompletion("搜索失败")
                 }
-                self.users = searchRes["users"] as? [User] ?? [User]()
-                self.tweets = searchRes["tweets"] as? [Tweet] ?? [Tweet]()
             case .failure:
-                failureCompletion((response.value as? ErrorResponse)?.message ?? "搜索失败")
+                failureCompletion("搜索失败")
             }
         }
     }
-
 }

@@ -14,12 +14,22 @@ struct ProfileHeaderView: View {
 
     var body: some View {
         VStack {
-            KFImage(URL(string: viewModel.user?.mediumAvatar ?? ""))
+            
+            if let mediumAvatar = viewModel.user?.mediumAvatar {
+                KFImage(URL(string: mediumAvatar))
                     .resizable()
                     .scaledToFill()
                     .frame(width: 120, height: 120)
                     .clipShape(Circle())
                     .shadow(color: .black, radius: 6)
+            } else {
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 120, height: 120)
+                    .clipShape(Circle())
+                    .shadow(color: .black, radius: 6)
+            }
 
             Text(viewModel.user?.name ?? "")
                     .font(.system(size: 16, weight: .semibold))

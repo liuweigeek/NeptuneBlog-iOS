@@ -35,13 +35,27 @@ class ProfileViewModel: ObservableObject {
                 encoder: JSONParameterEncoder.default
         ).responseJSON { response in
             switch response.result {
-            case .success:
-                guard let user = response.value as? User else {
-                    return
+            case .success(let json):
+                if let responseJson = (json as? [String: Any]) {
+                    do {
+                        if response.response?.statusCode == 200 {
+                            let user: User = try JsonUtils.from(data: responseJson)
+                            successfulCompletion(user)
+                        } else {
+                            let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
+                            print("follow user failed: \(errorResponse.message)")
+                            failureCompletion(errorResponse.message)
+                        }
+                    } catch {
+                        print("failed to parsing user body: \(error)")
+                        failureCompletion("关注失败")
+                    }
+                } else {
+                    print("failed to parsing user body")
+                    failureCompletion("关注失败")
                 }
-                successfulCompletion(user)
             case .failure:
-                failureCompletion((response.value as? ErrorResponse)?.message ?? "关注失败")
+                failureCompletion("关注失败")
             }
         }
     }
@@ -51,13 +65,27 @@ class ProfileViewModel: ObservableObject {
                 method: .delete
         ).responseJSON { response in
             switch response.result {
-            case .success:
-                guard let user = response.value as? User else {
-                    return
+            case .success(let json):
+                if let responseJson = (json as? [String: Any]) {
+                    do {
+                        if response.response?.statusCode == 200 {
+                            let user: User = try JsonUtils.from(data: responseJson)
+                            successfulCompletion(user)
+                        } else {
+                            let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
+                            print("unfollow user failed: \(errorResponse.message)")
+                            failureCompletion(errorResponse.message)
+                        }
+                    } catch {
+                        print("failed to parsing user body: \(error)")
+                        failureCompletion("取消关注失败")
+                    }
+                } else {
+                    print("failed to parsing user body")
+                    failureCompletion("取消关注失败")
                 }
-                successfulCompletion(user)
             case .failure:
-                failureCompletion((response.value as? ErrorResponse)?.message ?? "取消关注失败")
+                failureCompletion("取消关注失败")
             }
         }
     }
@@ -70,16 +98,30 @@ class ProfileViewModel: ObservableObject {
                 parameters: param
         ).responseJSON { response in
             switch response.result {
-            case .success:
-                guard let tweetsRes = response.value as? Pageable<Tweet> else {
-                    return
+            case .success(let json):
+                if let responseJson = (json as? [String: Any]) {
+                    do {
+                        if response.response?.statusCode == 200 {
+                            let tweetsRes: Pageable<Tweet> = try JsonUtils.from(data: responseJson)
+                            for tweet in tweetsRes.content ?? [Tweet]() {
+                                self.tweets.append(tweet)
+                            }
+                            self.offset += tweetsRes.numberOfElements
+                        } else {
+                            let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
+                            print("fetch tweets failed: \(errorResponse.message)")
+                            failureCompletion(errorResponse.message)
+                        }
+                    } catch {
+                        print("failed to parsing tweets body: \(error)")
+                        failureCompletion("获取用户推文失败")
+                    }
+                } else {
+                    print("failed to parsing tweets body")
+                    failureCompletion("获取用户推文失败")
                 }
-                for tweet in tweetsRes.content ?? [Tweet]() {
-                    self.tweets.append(tweet)
-                }
-                self.offset += tweetsRes.numberOfElements
             case .failure:
-                failureCompletion((response.value as? ErrorResponse)?.message ?? "获取用户推文失败")
+                failureCompletion("获取用户推文失败")
             }
         }
     }
@@ -89,16 +131,31 @@ class ProfileViewModel: ObservableObject {
                 method: .get
         ).responseJSON { response in
             switch response.result {
-            case .success:
-                guard let user = response.value as? User else {
-                    return
+            case .success(let json):
+                if let responseJson = (json as? [String: Any]) {
+                    do {
+                        if response.response?.statusCode == 200 {
+                            let user: User = try JsonUtils.from(data: responseJson)
+                            self.user = user
+                        } else {
+                            let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
+                            print("fetch user failed: \(errorResponse.message)")
+                            failureCompletion(errorResponse.message)
+                        }
+                    } catch {
+                        print("failed to parsing user body: \(error)")
+                        failureCompletion("查询用户信息失败")
+                    }
+                } else {
+                    print("failed to parsing user body")
+                    failureCompletion("查询用户信息失败")
                 }
-                self.user = user
             case .failure:
-                failureCompletion((response.value as? ErrorResponse)?.message ?? "查询用户信息失败")
+                failureCompletion("查询用户信息失败")
             }
         }
     }
+
 }
 
 extension ProfileViewModel {

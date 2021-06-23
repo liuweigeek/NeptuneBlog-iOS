@@ -47,11 +47,11 @@ class FeedViewModel: ObservableObject {
                             failureCompletion(errorResponse.message)
                         }
                     } catch {
-                        print("failed to parsing user body: \(error)")
+                        print("failed to parsing tweets body: \(error)")
                         failureCompletion("发送失败")
                     }
                 } else {
-                    print("failed to parsing user body")
+                    print("failed to parsing tweets body")
                     failureCompletion("发送失败")
                 }
             case .failure:
