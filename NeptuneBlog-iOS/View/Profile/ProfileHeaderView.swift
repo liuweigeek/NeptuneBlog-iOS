@@ -27,8 +27,8 @@ struct ProfileHeaderView: View {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 120, height: 120)
+                    .foregroundColor(.gray)
                     .clipShape(Circle())
-                    .shadow(color: .black, radius: 6)
             }
 
             Text(viewModel.user?.name ?? "")
@@ -45,17 +45,17 @@ struct ProfileHeaderView: View {
 
             HStack(spacing: 40) {
                 VStack {
-                    Text(String(viewModel.user?.followersCount ?? 0))
+                    Text(String(viewModel.user?.followingCount ?? 0))
                             .font(.system(size: 16))
                             .bold()
 
-                    Text("Followers")
+                    Text("Following")
                             .font(.footnote)
                             .foregroundColor(.gray)
                 }
 
                 VStack {
-                    Text("\(String(viewModel.user?.followingCount ?? 0))")
+                    Text("\(String(viewModel.user?.followersCount ?? 0))")
                             .font(.system(size: 16))
                             .bold()
 

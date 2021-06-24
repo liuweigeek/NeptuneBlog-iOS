@@ -26,6 +26,7 @@ struct TweetDetailView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 56, height: 56)
+                        .foregroundColor(.gray)
                         .clipShape(Circle())
                 }
 

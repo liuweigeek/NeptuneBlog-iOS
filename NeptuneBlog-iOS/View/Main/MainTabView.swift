@@ -27,7 +27,7 @@ struct MainTabView: View {
                 .tag(0)
             SearchView()
                 .onTapGesture {
-                    selectedIndex = 0
+                    selectedIndex = 1
                 }
                 .tabItem {
                     Image(systemName: "magnifyingglass")

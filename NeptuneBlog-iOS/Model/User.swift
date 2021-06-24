@@ -24,7 +24,7 @@ struct User: Identifiable, Codable {
     let token: String?
     let followingCount: Int?
     let followersCount: Int?
-    let collections: [String]?
+    let connections: [String]?
 
     init(email: String?, username: String, name: String, password: String) {
         self.email = email
@@ -42,6 +42,6 @@ struct User: Identifiable, Codable {
         self.token = nil
         self.followingCount = 0
         self.followersCount = 0
-        self.collections = [String]()
+        self.connections = [String]()
     }
 }

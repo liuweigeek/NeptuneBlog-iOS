@@ -24,14 +24,22 @@ class SearchViewModel: ObservableObject {
         ).responseJSON { response in
             switch response.result {
             case .success(let json):
-                if let responseJson = (json as? [String: Any]) {
+                if let responseJson = (json as? [String: [[String: Any]]]) {
                     do {
                         if response.response?.statusCode == 200 {
-                            if let usersRes = responseJson["users"] as? [String : Any] {
-                                self.users = try JsonUtils.from(data: usersRes)
+                            if let userList = responseJson["users"] {
+                                var users = [User]()
+                                for user in userList {
+                                    users.append(try JsonUtils.from(data: user))
+                                }
+                                self.users = users
                             }
-                            if let tweetsRes = responseJson["tweets"] as? [String : Any] {
-                                self.tweets = try JsonUtils.from(data: tweetsRes)
+                            if let tweetList = responseJson["tweets"] {
+                                var tweets = [Tweet]()
+                                for tweet in tweetList {
+                                    tweets.append(try JsonUtils.from(data: tweet))
+                                }
+                                self.tweets = tweets
                             }
                         } else {
                             let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
