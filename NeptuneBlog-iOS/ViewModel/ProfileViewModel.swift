@@ -35,15 +35,15 @@ class ProfileViewModel: ObservableObject {
         session.request(Constant.SERVER_HOST + Constant.API.FOLLOW_USER,
                 method: .post,
                 parameters: param,
-                encoder: JSONParameterEncoder.default
+                encoder: URLEncodedFormParameterEncoder.default
         ).responseJSON { response in
             switch response.result {
             case .success(let json):
                 if let responseJson = (json as? [String: Any]) {
                     do {
-                        if response.response?.statusCode == 200 {
-                            let user: User = try JsonUtils.from(data: responseJson)
-                            successfulCompletion(user)
+                        if response.response?.statusCode == 201 {
+                            self.getUserById(failureCompletion: failureCompletion)
+                            successfulCompletion(self.user!)
                         } else {
                             let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
                             print("follow user failed: \(errorResponse.message)")
@@ -72,8 +72,8 @@ class ProfileViewModel: ObservableObject {
                 if let responseJson = (json as? [String: Any]) {
                     do {
                         if response.response?.statusCode == 200 {
-                            let user: User = try JsonUtils.from(data: responseJson)
-                            successfulCompletion(user)
+                            self.getUserById(failureCompletion: failureCompletion)
+                            successfulCompletion(self.user!)
                         } else {
                             let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
                             print("unfollow user failed: \(errorResponse.message)")
