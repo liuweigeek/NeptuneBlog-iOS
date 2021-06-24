@@ -140,7 +140,6 @@ class ProfileViewModel: ObservableObject {
                         if response.response?.statusCode == 200 {
                             let user: User = try JsonUtils.from(data: responseJson)
                             self.user = user
-                            print(user.connections)
                             self.isFollowing = user.connections?.contains(UserConnection.FOLLOWING.rawValue) ?? false
                         } else {
                             let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)

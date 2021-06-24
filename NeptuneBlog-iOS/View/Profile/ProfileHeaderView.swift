@@ -21,7 +21,6 @@ struct ProfileHeaderView: View {
                     .scaledToFill()
                     .frame(width: 120, height: 120)
                     .clipShape(Circle())
-                    .shadow(color: .black, radius: 6)
             } else {
                 Image(systemName: "person.crop.circle")
                     .resizable()
