@@ -22,7 +22,14 @@ struct FeedView: View {
                             label: {
                                 TweetCell(tweet: tweet)
                             }
-                        )
+                        ).onAppear {
+                            let last = viewModel.tweets.last
+                            if last?.id == tweet.id {
+                                viewModel.fetchFollowingTweets { errorMsg in
+                                    
+                                }
+                            }
+                        }
                     }
                 }
                 .padding()

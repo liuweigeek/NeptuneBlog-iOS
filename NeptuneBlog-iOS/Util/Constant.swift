@@ -14,7 +14,7 @@ struct Constant {
     struct API {
         static let SIGN_IN = "/auth-server/auth/signIn"
         static let SIGN_UP = "/auth-server/auth/signUp"
-        static let UPLOAD_AVATAR = "/user-server/avatar"
+        static let UPLOAD_AVATAR = "/user-server/avatars"
 
         static let PUBLISH_TWEET = "/tweet-server/tweets"
         static let FETCH_TWEETS_BY_USER = "/tweet-server/tweets/user/%d"

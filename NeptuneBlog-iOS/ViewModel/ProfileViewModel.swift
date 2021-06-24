@@ -36,7 +36,9 @@ class ProfileViewModel: ObservableObject {
                 method: .post,
                 parameters: param,
                 encoder: URLEncodedFormParameterEncoder.default
-        ).responseJSON { response in
+        )
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
             switch response.result {
             case .success(let json):
                 if let responseJson = (json as? [String: Any]) {
@@ -66,7 +68,9 @@ class ProfileViewModel: ObservableObject {
     func unfollow(successfulCompletion: @escaping (User) -> Void, failureCompletion: @escaping (String) -> Void) {
         session.request(Constant.SERVER_HOST + String(format: Constant.API.UNFOLLOW_USER, userId),
                 method: .delete
-        ).responseJSON { response in
+        )
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
             switch response.result {
             case .success(let json):
                 if let responseJson = (json as? [String: Any]) {
@@ -99,7 +103,9 @@ class ProfileViewModel: ObservableObject {
         session.request(Constant.SERVER_HOST + String(format: Constant.API.FETCH_TWEETS_BY_USER, userId),
                 method: .get,
                 parameters: param
-        ).responseJSON { response in
+        )
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
             switch response.result {
             case .success(let json):
                 if let responseJson = (json as? [String: Any]) {
@@ -132,7 +138,9 @@ class ProfileViewModel: ObservableObject {
     func getUserById(failureCompletion: @escaping (String) -> Void) {
         session.request(Constant.SERVER_HOST + String(format: Constant.API.GET_USER_BY_ID, userId),
                 method: .get
-        ).responseJSON { response in
+        )
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
             switch response.result {
             case .success(let json):
                 if let responseJson = (json as? [String: Any]) {

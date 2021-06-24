@@ -21,7 +21,9 @@ class SearchViewModel: ObservableObject {
         session.request(Constant.SERVER_HOST + Constant.API.SEARCH,
                 method: .get,
                 parameters: param
-        ).responseJSON { response in
+        )
+        .validate(statusCode: 200..<300)
+        .responseJSON { response in
             switch response.result {
             case .success(let json):
                 if let responseJson = (json as? [String: [[String: Any]]]) {

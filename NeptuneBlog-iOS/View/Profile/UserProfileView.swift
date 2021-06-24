@@ -30,6 +30,14 @@ struct UserProfileView: View {
                 
                 ForEach(viewModel.tweets) { tweet in
                     TweetCell(tweet: tweet)
+                        .onAppear {
+                            let last = viewModel.tweets.last
+                            if last?.id == tweet.id {
+                                viewModel.findTweetsByUserId { errorMsg in
+                                    
+                                }
+                            }
+                        }
                 }
                 .padding(.horizontal)
             }
