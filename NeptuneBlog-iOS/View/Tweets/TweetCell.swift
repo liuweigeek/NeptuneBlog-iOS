@@ -17,23 +17,28 @@ struct TweetCell: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 12) {
-                if let smallAvatar = tweet.author.smallAvatar {
-                    KFImage(URL(string: smallAvatar))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 56, height: 56)
-                        .clipShape(Circle())
-                        .padding(.leading)
-                } else {
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 56, height: 56)
-                        .clipShape(Circle())
-                        .foregroundColor(.gray)
-                        .padding(.leading)
-                }
                 
+                NavigationLink(
+                    destination: LazyView(UserProfileView(userId: tweet.author.id!)),
+                    label: {
+                        if let smallAvatar = tweet.author.smallAvatar {
+                            KFImage(URL(string: smallAvatar))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 56, height: 56)
+                                .clipShape(Circle())
+                                .padding(.leading)
+                        } else {
+                            Image(systemName: "person.crop.circle")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 56, height: 56)
+                                .clipShape(Circle())
+                                .foregroundColor(.gray)
+                                .padding(.leading)
+                        }
+                    }
+                )
                 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {

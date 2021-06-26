@@ -15,20 +15,25 @@ struct TweetDetailView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                if let smallAvatar = tweet.author.smallAvatar {
-                    KFImage(URL(string: smallAvatar))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 56, height: 56)
-                        .clipShape(Circle())
-                } else {
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 56, height: 56)
-                        .foregroundColor(.gray)
-                        .clipShape(Circle())
-                }
+                NavigationLink(
+                    destination: LazyView(UserProfileView(userId: tweet.author.id!)),
+                    label: {
+                        if let smallAvatar = tweet.author.smallAvatar {
+                            KFImage(URL(string: smallAvatar))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 56, height: 56)
+                                .clipShape(Circle())
+                        } else {
+                            Image(systemName: "person.crop.circle")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 56, height: 56)
+                                .foregroundColor(.gray)
+                                .clipShape(Circle())
+                        }
+                    }
+                )
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(tweet.author.name)
