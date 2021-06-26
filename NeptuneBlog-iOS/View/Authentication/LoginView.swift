@@ -84,7 +84,8 @@ struct LoginView: View {
                     )
                 }.foregroundColor(.white)
                 .padding(.bottom, 40)
-            }.background(Color(#colorLiteral(red: 0.1137796417, green: 0.6296399236, blue: 0.9523974061, alpha: 1)))
+            }
+            .background(Color(#colorLiteral(red: 0.1137796417, green: 0.6296399236, blue: 0.9523974061, alpha: 1)))
             .ignoresSafeArea()
         }
         .onTapGesture {

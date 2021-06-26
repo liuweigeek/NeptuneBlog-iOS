@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct FeedView: View {
     
     @State var isShowingNewTweetView = false
     @State private var errorMessage = ""
     @State private var showingAlert = false
+    @State private var showingToast = false
     @ObservedObject var viewModel = FeedViewModel()
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -54,14 +57,21 @@ struct FeedView: View {
             .padding()
             .fullScreenCover(isPresented: $isShowingNewTweetView) {
                 NewTweetView(isPresented: $isShowingNewTweetView) { tweet in
+                    showingToast = true
                     viewModel.refreshTweets { errorMessage in
-                        
+                        self.errorMessage = errorMessage
+                        self.showingAlert = true
                     }
                 }
             }
         }
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("\(errorMessage)"), dismissButton: .default(Text("好的")))
+        }
+        .toast(isPresenting: $showingToast){
+            AlertToast(displayMode: .alert,
+                       type: .complete(colorScheme == .dark ? .white : .black),
+                       title: "已发布")
         }
     }
 }

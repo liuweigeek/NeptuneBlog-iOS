@@ -56,14 +56,14 @@ class FeedViewModel: ObservableObject {
                         }
                     } catch {
                         print("failed to parsing tweets body: \(error)")
-                        failureCompletion("发送失败")
+                        failureCompletion("加载推文失败")
                     }
                 } else {
                     print("failed to parsing tweets body")
-                    failureCompletion("发送失败")
+                    failureCompletion("加载推文失败")
                 }
             case .failure:
-                failureCompletion("发送失败")
+                failureCompletion("加载推文失败")
             }
         }
     }

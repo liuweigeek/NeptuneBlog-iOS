@@ -52,6 +52,7 @@
 		D27673BA2678C29A00A4BA37 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27673B92678C29A00A4BA37 /* Constant.swift */; };
 		D2A2C20926786AA6008B5FC6 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A2C20826786AA6008B5FC6 /* Tweet.swift */; };
 		D2A2C20B26786AB9008B5FC6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A2C20A26786AB9008B5FC6 /* User.swift */; };
+		D2B1F1AF26877DAD00733DA6 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = D2B1F1AE26877DAD00733DA6 /* AlertToast */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2B1F1AF26877DAD00733DA6 /* AlertToast in Frameworks */,
 				D276735B2678BDC600A4BA37 /* Kingfisher in Frameworks */,
 				D276735E2678BE0F00A4BA37 /* Alamofire in Frameworks */,
 			);
@@ -297,6 +299,7 @@
 			packageProductDependencies = (
 				D276735A2678BDC600A4BA37 /* Kingfisher */,
 				D276735D2678BE0F00A4BA37 /* Alamofire */,
+				D2B1F1AE26877DAD00733DA6 /* AlertToast */,
 			);
 			productName = "NeptuneBlog-iOS";
 			productReference = D217593D2677A898006339EA /* NeptuneBlog-iOS.app */;
@@ -328,6 +331,7 @@
 			packageReferences = (
 				D27673592678BDC600A4BA37 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				D276735C2678BE0F00A4BA37 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				D2B1F1AD26877DAD00733DA6 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = D217593E2677A898006339EA /* Products */;
 			projectDirPath = "";
@@ -602,6 +606,14 @@
 				minimumVersion = 5.4.3;
 			};
 		};
+		D2B1F1AD26877DAD00733DA6 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://gitee.com/liuweigeek/AlertToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.9;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -614,6 +626,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D276735C2678BE0F00A4BA37 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		D2B1F1AE26877DAD00733DA6 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2B1F1AD26877DAD00733DA6 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

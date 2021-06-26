@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "AlertToast",
+        "repositoryURL": "https://gitee.com/liuweigeek/AlertToast.git",
+        "state": {
+          "branch": null,
+          "revision": "0a6f9182ce19ccd267f7d022ebbc9ae3952f4012",
+          "version": "1.2.9"
+        }
+      },
+      {
         "package": "Kingfisher",
         "repositoryURL": "https://gitee.com/liuweigeek/Kingfisher.git",
         "state": {
