@@ -29,11 +29,9 @@ struct ContentView: View {
     private func tabTitle(forIndex index: Int) -> String {
         switch index {
         case 0:
-            return "Home"
+            return "主页"
         case 1:
-            return "Search"
-        case 2:
-            return "Messages"
+            return "搜索"
         default:
             return ""
         }
