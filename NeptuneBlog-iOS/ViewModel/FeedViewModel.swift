@@ -17,7 +17,6 @@ class FeedViewModel: ObservableObject {
     private var limit = Constant.PAGE_LIMIT
     
     init() {
-        print("========== init feed viewmodel ==========")
         fetchFollowingTweets { errMsg in
             
         }
