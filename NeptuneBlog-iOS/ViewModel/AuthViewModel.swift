@@ -77,7 +77,7 @@ class AuthViewModel: ObservableObject {
                             }
 
                             self.session.upload(multipartFormData: { multipartFormData in
-                                multipartFormData.append(imageData, withName: "file")
+                                multipartFormData.append(imageData, withName: "file", fileName: "avatar-\(authUser.id).jpg", mimeType: "image/jpg")
                             }, to: Constant.SERVER_HOST + Constant.API.UPLOAD_AVATAR)
                             .responseJSON{ response in
                                 switch response.result {
@@ -88,7 +88,7 @@ class AuthViewModel: ObservableObject {
                                                 let user: User = try JsonUtils.from(data: responseJson)
                                                 let authUser = AuthUser(id: user.id!, email: user.email, username: user.username,
                                                                         name: user.name, smallAvatar: user.smallAvatar, mediumAvatar: user.mediumAvatar,
-                                                                        largeAvatar: user.largeAvatar, lang: user.lang, token: user.token!)
+                                                                        largeAvatar: user.largeAvatar, lang: user.lang, token: authUser.token)
                                                 self.userSessionManager.setCurrentUser(authUser)
                                             } else {
                                                 let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
