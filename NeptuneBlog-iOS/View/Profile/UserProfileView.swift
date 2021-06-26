@@ -50,7 +50,7 @@ struct UserProfileView: View {
             authViewModel.signOut()
         }, label: {
             if viewModel.isSelf() {
-                Text("Sign Out")
+                Text("退出登录")
             }
         }))
         .alert(isPresented: $showingAlert) {
