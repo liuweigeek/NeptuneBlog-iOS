@@ -9,13 +9,15 @@ import SwiftUI
 
 struct UserProfileView: View {
     
-    @State var selectedFilter: TweetFilterOptions = .tweets
+    @State private var selectedFilter: TweetFilterOptions = .tweets
+    @State private var errorMessage = ""
+    @State private var showingAlert = false
     @ObservedObject var viewModel: ProfileViewModel
     let authViewModel = AuthViewModel.shared
     
     init(userId: Int) {
         viewModel = ProfileViewModel(forUser: userId) { errorMsg in
-            
+        
         }
     }
     
@@ -33,8 +35,9 @@ struct UserProfileView: View {
                         .onAppear {
                             let last = viewModel.tweets.last
                             if last?.id == tweet.id {
-                                viewModel.findTweetsByUserId { errorMsg in
-                                    
+                                viewModel.findTweetsByUserId { errorMessage in
+                                    self.errorMessage = errorMessage
+                                    self.showingAlert = true
                                 }
                             }
                         }
@@ -50,5 +53,8 @@ struct UserProfileView: View {
                 Text("Sign Out")
             }
         }))
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("\(errorMessage)"), dismissButton: .default(Text("好的")))
+        }
     }
 }

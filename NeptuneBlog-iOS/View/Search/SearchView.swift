@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SearchView: View {
     
+    @State private var errorMessage = ""
+    @State private var showingAlert = false
     @StateObject var viewModel = SearchViewModel()
     
     var body: some View {
@@ -16,8 +18,9 @@ struct SearchView: View {
             SearchBar(onCommit: { searchText in
                 viewModel.users.removeAll()
                 viewModel.tweets.removeAll()
-                viewModel.searchByKeyword(keyword: searchText) { errorMsg in
-                    
+                viewModel.searchByKeyword(keyword: searchText) { errorMessage in
+                    self.errorMessage = errorMessage
+                    self.showingAlert = true
                 }
             })
             .padding()
@@ -56,7 +59,10 @@ struct SearchView: View {
                 .padding(.bottom)
             }
         }
-        .navigationBarTitle("Search")
+        .navigationBarTitle("搜索")
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("\(errorMessage)"), dismissButton: .default(Text("好的")))
+        }
     }
 }
 

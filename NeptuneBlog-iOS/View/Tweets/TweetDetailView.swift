@@ -54,7 +54,7 @@ struct TweetDetailView: View {
                     Text("0")
                         .font(.system(size: 14, weight: .semibold))
                     
-                    Text("Retweets")
+                    Text("转推")
                         .font(.system(size: 14))
                         .foregroundColor(.gray)
                 }
@@ -63,7 +63,7 @@ struct TweetDetailView: View {
                     Text("0")
                         .font(.system(size: 14, weight: .semibold))
                     
-                    Text("Likes")
+                    Text("喜欢")
                         .font(.system(size: 14))
                         .foregroundColor(.gray)
                 }

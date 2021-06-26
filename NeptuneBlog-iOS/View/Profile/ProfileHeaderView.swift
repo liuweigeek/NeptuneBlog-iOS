@@ -48,7 +48,7 @@ struct ProfileHeaderView: View {
                             .font(.system(size: 16))
                             .bold()
 
-                    Text("Following")
+                    Text("正在关注")
                             .font(.footnote)
                             .foregroundColor(.gray)
                 }
@@ -58,7 +58,7 @@ struct ProfileHeaderView: View {
                             .font(.system(size: 16))
                             .bold()
 
-                    Text("Followers")
+                    Text("关注者")
                             .font(.footnote)
                             .foregroundColor(.gray)
                 }

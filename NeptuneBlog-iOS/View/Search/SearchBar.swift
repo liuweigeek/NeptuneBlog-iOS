@@ -14,7 +14,7 @@ struct SearchBar: View {
     
     var body: some View {
         HStack {
-            TextField("Search...", text: $text, onCommit: {
+            TextField("搜索推文、找人...", text: $text, onCommit: {
                 onCommit(text)
             })
             .padding(8)

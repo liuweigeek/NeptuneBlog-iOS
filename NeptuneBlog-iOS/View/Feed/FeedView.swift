@@ -10,6 +10,8 @@ import SwiftUI
 struct FeedView: View {
     
     @State var isShowingNewTweetView = false
+    @State private var errorMessage = ""
+    @State private var showingAlert = false
     @ObservedObject var viewModel = FeedViewModel()
     
     var body: some View {
@@ -25,8 +27,9 @@ struct FeedView: View {
                         ).onAppear {
                             let last = viewModel.tweets.last
                             if last?.id == tweet.id {
-                                viewModel.fetchFollowingTweets { errorMsg in
-                                    
+                                viewModel.fetchFollowingTweets { errorMessage in
+                                    self.errorMessage = errorMessage
+                                    self.showingAlert = true
                                 }
                             }
                         }
@@ -50,8 +53,15 @@ struct FeedView: View {
             .clipShape(Circle())
             .padding()
             .fullScreenCover(isPresented: $isShowingNewTweetView) {
-                NewTweetView(isPresented: $isShowingNewTweetView)
+                NewTweetView(isPresented: $isShowingNewTweetView) { tweet in
+                    viewModel.refreshTweets { errorMessage in
+                        
+                    }
+                }
             }
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("\(errorMessage)"), dismissButton: .default(Text("好的")))
         }
     }
 }

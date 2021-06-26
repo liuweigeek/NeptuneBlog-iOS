@@ -22,7 +22,7 @@ struct MainTabView: View {
                 }
                 .tabItem {
                     Image(systemName: "house")
-                    Text("Home")
+                    Text("主页")
                 }
                 .tag(0)
             SearchView()
@@ -31,11 +31,11 @@ struct MainTabView: View {
                 }
                 .tabItem {
                     Image(systemName: "magnifyingglass")
-                    Text("Search")
+                    Text("搜索")
                 }
                 .tag(1)
         }
-        .navigationBarTitle("Home")
+        .navigationBarTitle("主页")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(leading: Button(action: {
             authViewModel.signOut()

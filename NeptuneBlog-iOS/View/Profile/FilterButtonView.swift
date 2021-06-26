@@ -16,11 +16,11 @@ enum TweetFilterOptions: Int, CaseIterable {
     var title: String {
         switch self {
         case .tweets:
-            return "Tweets"
+            return "推文"
         case .replies:
-            return "Tweets & Replies"
+            return "推文 & 回复"
         case .likes:
-            return "Likes"
+            return "喜欢"
         }
     }
 }

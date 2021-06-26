@@ -11,7 +11,10 @@ import Kingfisher
 struct NewTweetView: View {
     
     @Binding var isPresented: Bool
-    @State var captionText: String = ""
+    let tweetPostedCompletion: (Tweet) -> Void
+    @State private var captionText: String = ""
+    @State private var errorMessage = ""
+    @State private var showingAlert = false
     @ObservedObject var viewModel = UploadTweetViewModel()
     @ObservedObject var userSessionManager = UserSessionManager.shared
     
@@ -37,7 +40,7 @@ struct NewTweetView: View {
                         }
                     }
                     
-                    TextArea(text: $captionText, placeholder: "What's happening?")
+                    TextArea(text: $captionText, placeholder: "有什么新鲜事?")
                     
                     Spacer()
                 }
@@ -48,22 +51,27 @@ struct NewTweetView: View {
             .navigationBarItems(leading: Button(action: {
                 isPresented = false
             }, label: {
-                Text("Cancel")
+                Text("取消")
                     .foregroundColor(.blue)
             }), trailing: Button(action: {
                 viewModel.publishTweet(text: captionText, successfulCompletion: { tweet in
                     isPresented = false
-                }, failureCompletion: { errorMsg in
-                    
+                    self.tweetPostedCompletion(tweet)
+                }, failureCompletion: { errorMessage in
+                    self.errorMessage = errorMessage
+                    self.showingAlert = true
                 })
             }, label: {
-                Text("Tweet")
+                Text("发推")
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .clipShape(Capsule())
             }))
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("\(errorMessage)"), dismissButton: .default(Text("好的")))
         }
     }
 }
