@@ -16,7 +16,7 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $selectedIndex) {
-            FeedView()
+            LazyView(FeedView())
                 .onTapGesture {
                     selectedIndex = 0
                 }
@@ -25,7 +25,7 @@ struct MainTabView: View {
                     Text("主页")
                 }
                 .tag(0)
-            SearchView()
+            LazyView(SearchView())
                 .onTapGesture {
                     selectedIndex = 1
                 }
