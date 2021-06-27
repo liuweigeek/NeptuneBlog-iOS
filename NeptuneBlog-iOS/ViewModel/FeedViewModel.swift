@@ -62,7 +62,8 @@ class FeedViewModel: ObservableObject {
                     print("failed to parsing tweets body")
                     failureCompletion("加载推文失败")
                 }
-            case .failure:
+            case .failure(let error):
+                print("fetch tweets failed: \(error.localizedDescription)")
                 failureCompletion("加载推文失败")
             }
         }

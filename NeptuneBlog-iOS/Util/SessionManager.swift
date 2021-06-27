@@ -42,6 +42,8 @@ class JwtTokenAdapter: RequestInterceptor {
         print("HTTP request failed: \(error.localizedDescription)")
         if let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 {
             AuthViewModel.shared.signOut()
+        } else {
+            completion(.doNotRetry)
         }
     }
 }
