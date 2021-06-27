@@ -25,7 +25,7 @@ struct SearchView: View {
             })
             .padding()
             
-            if (viewModel.users.count > 0) {
+            if viewModel.users.count > 0 {
                 VStack(alignment: .leading) {
                     Section(header: Text("用户")) {
                         ForEach(viewModel.users) { user in
@@ -42,7 +42,7 @@ struct SearchView: View {
                 .padding(.bottom)
             }
 
-            if (viewModel.tweets.count > 0) {
+            if viewModel.tweets.count > 0 {
                 VStack(alignment: .leading) {
                     Section(header: Text("推文")) {
                         ForEach(viewModel.tweets) { tweet in
