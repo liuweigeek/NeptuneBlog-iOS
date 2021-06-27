@@ -16,9 +16,7 @@ struct UserProfileView: View {
     let authViewModel = AuthViewModel.shared
     
     init(userId: Int) {
-        viewModel = ProfileViewModel(forUser: userId) { errorMsg in
-            
-        }
+        viewModel = ProfileViewModel(forUser: userId)
     }
     
     var body: some View {
@@ -50,6 +48,16 @@ struct UserProfileView: View {
                 .padding(.horizontal)
             }
         }
+        .onAppear(perform: {
+            viewModel.getUserById { errorMessage in
+                self.errorMessage = errorMessage
+                self.showingAlert = true
+            }
+            viewModel.findTweetsByUserId { errorMessage in
+                self.errorMessage = errorMessage
+                self.showingAlert = true
+            }
+        })
         .navigationTitle(viewModel.user?.username ?? "")
         .navigationBarItems(trailing: Button(action: {
             authViewModel.signOut()

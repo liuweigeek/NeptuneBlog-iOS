@@ -42,7 +42,8 @@ class UploadTweetViewModel: ObservableObject {
                     print("failed to parsing tweet body")
                     failureCompletion("发送失败")
                 }
-            case .failure:
+            case .failure(let error):
+                print("post tweet failed: \(error.localizedDescription)")
                 failureCompletion("发送失败")
             }
         }

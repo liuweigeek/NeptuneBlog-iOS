@@ -16,12 +16,6 @@ class FeedViewModel: ObservableObject {
     private var offset = 0
     private var limit = Constant.PAGE_LIMIT
     
-    init() {
-        fetchFollowingTweets { errorMessage in
-            
-        }
-    }
-    
     func refreshTweets(failureCompletion: @escaping (String) -> Void) {
         offset = 0
         limit = Constant.PAGE_LIMIT

@@ -56,7 +56,8 @@ class SearchViewModel: ObservableObject {
                     print("failed to parsing search body")
                     failureCompletion("搜索失败")
                 }
-            case .failure:
+            case .failure(let error):
+                print("search failed: \(error.localizedDescription)")
                 failureCompletion("搜索失败")
             }
         }

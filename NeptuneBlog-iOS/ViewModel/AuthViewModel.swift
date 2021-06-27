@@ -46,7 +46,8 @@ class AuthViewModel: ObservableObject {
                     print("failed to parsing user body")
                     failureCompletion("登录失败")
                 }
-            case .failure:
+            case .failure(let error):
+                print("signIn failed: \(error.localizedDescription)")
                 failureCompletion("登录失败")
             }
         }
@@ -103,14 +104,15 @@ class AuthViewModel: ObservableObject {
                                         print("failed to parsing user body")
                                         failureCompletion("上传头像失败")
                                     }
-                                case .failure:
+                                case .failure(let error):
+                                    print("upload avatar failed: \(error.localizedDescription)")
                                     failureCompletion("上传头像失败")
                                 }
                             }
                             
                         } else {
                             let errorResponse: ErrorResponse = try JsonUtils.from(data: responseJson)
-                            print("signIn failed: \(errorResponse.message)")
+                            print("signUp failed: \(errorResponse.message)")
                             failureCompletion(errorResponse.message)
                         }
                     } catch {
@@ -121,7 +123,8 @@ class AuthViewModel: ObservableObject {
                     print("failed to parsing user body")
                     failureCompletion("注册失败")
                 }
-            case .failure:
+            case .failure(let error):
+                print("signUp failed: \(error.localizedDescription)")
                 failureCompletion("注册失败")
             }
         }

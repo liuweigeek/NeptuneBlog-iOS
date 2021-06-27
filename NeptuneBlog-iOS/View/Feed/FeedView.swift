@@ -65,6 +65,12 @@ struct FeedView: View {
                 }
             }
         }
+        .onAppear(perform: {
+            viewModel.fetchFollowingTweets { errorMessage in
+                self.errorMessage = errorMessage
+                self.showingAlert = true
+            }
+        })
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("\(errorMessage)"), dismissButton: .default(Text("好的")))
         }
