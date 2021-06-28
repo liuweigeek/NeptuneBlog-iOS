@@ -9,18 +9,18 @@ import SwiftUI
 import Alamofire
 
 class AuthViewModel: ObservableObject {
-
+    
     @ObservedObject var userSessionManager = UserSessionManager.shared
-
+    
     private let session = SessionManager.shared.session
     static let shared = AuthViewModel()
-
+    
     func signIn(withUsername username: String, password: String, failureCompletion: @escaping (String) -> Void) {
-
+        
         let loginParam = ["username": username, "password": password]
         session.request(Constant.SERVER_HOST + Constant.API.SIGN_IN,
-                   method: .post,
-                   parameters: loginParam
+                        method: .post,
+                        parameters: loginParam
         )
         .responseJSON { response in
             switch response.result {
@@ -52,13 +52,13 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     func signUp(user: User, profileImage: UIImage?, failureCompletion: @escaping (String) -> Void) {
-
+        
         session.request(Constant.SERVER_HOST + Constant.API.SIGN_UP,
-                   method: .post,
-                   parameters: user,
-                   encoder: JSONParameterEncoder.default
+                        method: .post,
+                        parameters: user,
+                        encoder: JSONParameterEncoder.default
         )
         .responseJSON { response in
             switch response.result {
@@ -72,11 +72,11 @@ class AuthViewModel: ObservableObject {
                                                     name: user.name, smallAvatar: user.smallAvatar, mediumAvatar: user.mediumAvatar,
                                                     largeAvatar: user.largeAvatar, lang: user.lang, token: user.token!)
                             self.userSessionManager.setCurrentUser(authUser)
-
+                            
                             guard let imageData = profileImage?.jpegData(compressionQuality: 0.3) else {
                                 return
                             }
-
+                            
                             self.session.upload(multipartFormData: { multipartFormData in
                                 multipartFormData.append(imageData, withName: "file", fileName: "avatar-\(authUser.id).jpg", mimeType: "image/jpg")
                             }, to: Constant.SERVER_HOST + Constant.API.UPLOAD_AVATAR)
@@ -129,9 +129,9 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     func signOut() {
         userSessionManager.removeUser()
     }
-
+    
 }

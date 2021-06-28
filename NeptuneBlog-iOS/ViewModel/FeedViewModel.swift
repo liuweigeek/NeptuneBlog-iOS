@@ -9,9 +9,9 @@ import SwiftUI
 import Alamofire
 
 class FeedViewModel: ObservableObject {
-
+    
     private let session = SessionManager.shared.session
-
+    
     @Published var tweets = [Tweet]()
     private var offset = 0
     private var limit = Constant.PAGE_LIMIT
@@ -22,14 +22,14 @@ class FeedViewModel: ObservableObject {
         tweets.removeAll()
         fetchFollowingTweets(failureCompletion: failureCompletion)
     }
-
+    
     func fetchFollowingTweets(failureCompletion: @escaping (String) -> Void) {
-
+        
         let param = ["offset": offset, "limit": limit]
-
+        
         session.request(Constant.SERVER_HOST + Constant.API.FETCH_FOLLOWING_TWEETS,
-                method: .get,
-                parameters: param
+                        method: .get,
+                        parameters: param
         )
         .validate(statusCode: 200..<300)
         .responseJSON { response in
@@ -62,5 +62,5 @@ class FeedViewModel: ObservableObject {
             }
         }
     }
-
+    
 }

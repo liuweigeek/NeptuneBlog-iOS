@@ -11,14 +11,14 @@ import Alamofire
 class UploadTweetViewModel: ObservableObject {
     
     private let session = SessionManager.shared.session
-
+    
     func publishTweet(text: String, successfulCompletion: @escaping (Tweet) -> Void, failureCompletion: @escaping (String) -> Void) {
-
+        
         let param = ["text": text]
         session.request(Constant.SERVER_HOST + Constant.API.PUBLISH_TWEET,
-                method: .post,
-                parameters: param,
-                encoder: JSONParameterEncoder.default
+                        method: .post,
+                        parameters: param,
+                        encoder: JSONParameterEncoder.default
         )
         .validate(statusCode: 200..<300)
         .responseJSON { response in

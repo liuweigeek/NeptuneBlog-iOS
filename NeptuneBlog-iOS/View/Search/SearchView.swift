@@ -41,7 +41,7 @@ struct SearchView: View {
                 .padding(.leading)
                 .padding(.bottom)
             }
-
+            
             if viewModel.tweets.count > 0 {
                 VStack(alignment: .leading) {
                     Section(header: Text("推文")) {

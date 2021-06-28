@@ -9,18 +9,18 @@ import Foundation
 import Alamofire
 
 class SearchViewModel: ObservableObject {
-
+    
     private let session = SessionManager.shared.session
-
+    
     @Published var users = [User]()
     @Published var tweets = [Tweet]()
-
+    
     func searchByKeyword(keyword: String, failureCompletion: @escaping (String) -> Void) {
-
+        
         let param = ["q": keyword]
         session.request(Constant.SERVER_HOST + Constant.API.SEARCH,
-                method: .get,
-                parameters: param
+                        method: .get,
+                        parameters: param
         )
         .validate(statusCode: 200..<300)
         .responseJSON { response in

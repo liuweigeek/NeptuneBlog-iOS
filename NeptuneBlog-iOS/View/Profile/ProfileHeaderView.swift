@@ -9,9 +9,9 @@ import SwiftUI
 import Kingfisher
 
 struct ProfileHeaderView: View {
-
+    
     @ObservedObject var viewModel: ProfileViewModel
-
+    
     var body: some View {
         VStack {
             
@@ -29,44 +29,44 @@ struct ProfileHeaderView: View {
                     .foregroundColor(.gray)
                     .clipShape(Circle())
             }
-
+            
             Text(viewModel.user?.name ?? "")
-                    .font(.system(size: 16, weight: .semibold))
-                    .padding(.top, 8)
-
+                .font(.system(size: 16, weight: .semibold))
+                .padding(.top, 8)
+            
             Text("@\(viewModel.user?.username ?? "")")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-
+                .font(.subheadline)
+                .foregroundColor(.gray)
+            
             Text("Billionaire by day, dark knight by night")
-                    .font(.system(size: 14))
-                    .padding(.top, 8)
-
+                .font(.system(size: 14))
+                .padding(.top, 8)
+            
             HStack(spacing: 40) {
                 VStack {
                     Text(String(viewModel.user?.followingCount ?? 0))
-                            .font(.system(size: 16))
-                            .bold()
-
+                        .font(.system(size: 16))
+                        .bold()
+                    
                     Text("正在关注")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
+                        .font(.footnote)
+                        .foregroundColor(.gray)
                 }
-
+                
                 VStack {
                     Text("\(String(viewModel.user?.followersCount ?? 0))")
-                            .font(.system(size: 16))
-                            .bold()
-
+                        .font(.system(size: 16))
+                        .bold()
+                    
                     Text("关注者")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
+                        .font(.footnote)
+                        .foregroundColor(.gray)
                 }
             }
-                    .padding()
-
+            .padding()
+            
             ProfileActionButtonView(viewModel: viewModel)
-
+            
             Spacer()
         }
     }

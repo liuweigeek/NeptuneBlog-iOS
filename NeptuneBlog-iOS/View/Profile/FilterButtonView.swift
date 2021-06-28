@@ -8,11 +8,11 @@
 import SwiftUI
 
 enum TweetFilterOptions: Int, CaseIterable {
-
+    
     case tweets
     case replies
     case likes
-
+    
     var title: String {
         switch self {
         case .tweets:
@@ -26,17 +26,17 @@ enum TweetFilterOptions: Int, CaseIterable {
 }
 
 struct FilterButtonView: View {
-
+    
     @Binding var selectedOption: TweetFilterOptions
-
+    
     private let underlineWidth = UIScreen.main.bounds.width / CGFloat(TweetFilterOptions.allCases.count)
-
+    
     private var padding: CGFloat {
         let rawValue = CGFloat(selectedOption.rawValue)
         let count = CGFloat(TweetFilterOptions.allCases.count)
         return (UIScreen.main.bounds.width / count) * rawValue + 16
     }
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -45,17 +45,17 @@ struct FilterButtonView: View {
                         self.selectedOption = option
                     }, label: {
                         Text(option.title)
-                                .font(.system(size: 14))
-                                .frame(width: underlineWidth - 8)
+                            .font(.system(size: 14))
+                            .frame(width: underlineWidth - 8)
                     })
                 }
             }
-
+            
             Rectangle()
-                    .frame(width: underlineWidth - 32, height: 3, alignment: .center)
-                    .foregroundColor(.blue)
-                    .animation(.spring())
-                    .padding(.leading, self.padding)
+                .frame(width: underlineWidth - 32, height: 3, alignment: .center)
+                .foregroundColor(.blue)
+                .animation(.spring())
+                .padding(.leading, self.padding)
         }
     }
 }

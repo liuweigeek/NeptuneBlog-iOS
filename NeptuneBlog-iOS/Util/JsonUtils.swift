@@ -5,7 +5,7 @@
 import Foundation
 
 struct JsonUtils {
-
+    
     static func from<T: Decodable>(data: [String: Any]) throws -> T {
         let json = try JSONSerialization.data(withJSONObject: data)
         return try JSONDecoder().decode(T.self, from: json)

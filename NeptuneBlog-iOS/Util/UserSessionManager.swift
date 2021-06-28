@@ -12,7 +12,7 @@ class UserSessionManager: ObservableObject {
     static let shared = UserSessionManager()
     private let userDefaults = UserDefaults.standard
     private var token: String?
-
+    
     @Published var user: AuthUser?
     
     init() {
