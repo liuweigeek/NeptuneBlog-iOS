@@ -14,7 +14,7 @@ struct ProfileHeaderView: View {
     
     var body: some View {
         VStack {
-            
+
             if let mediumAvatar = viewModel.user?.mediumAvatar {
                 KFImage(URL(string: mediumAvatar))
                     .resizable()
