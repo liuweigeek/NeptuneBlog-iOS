@@ -52,7 +52,9 @@ class UserSessionManager: ObservableObject {
     }
     
     func removeUser() {
-        self.user = nil
+        DispatchQueue.main.async {
+            self.user = nil
+        }
         self.token = nil
         self.userDefaults.removeObject(forKey: Constant.AUTH_USER_KEY)
     }

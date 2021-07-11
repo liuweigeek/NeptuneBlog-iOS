@@ -23,6 +23,7 @@ class AuthViewModel: ObservableObject {
                         parameters: loginParam
         )
         .responseJSON { response in
+            print(response)
             switch response.result {
             case .success(let json):
                 if let responseJson = (json as? [String: Any]) {
