@@ -47,15 +47,17 @@ class UserSessionManager: ObservableObject {
             print("Unable to Decode Note (\(error.localizedDescription))")
             return
         }
-        self.user = user
-        self.token = user.token
+        DispatchQueue.main.async {
+            self.user = user
+            self.token = user.token
+        }
     }
     
     func removeUser() {
         DispatchQueue.main.async {
             self.user = nil
+            self.token = nil
         }
-        self.token = nil
         self.userDefaults.removeObject(forKey: Constant.AUTH_USER_KEY)
     }
 }
