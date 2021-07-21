@@ -37,9 +37,7 @@ struct MainTabView: View {
         }
         .navigationBarTitle("主页")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(leading: Button(action: {
-            authViewModel.signOut()
-        }, label: {
+        .navigationBarItems(leading: Button(action: {}, label: {
             if let user = userSessionManager.user {
                 NavigationLink(
                     destination: LazyView(UserProfileView(userId: user.id)),
