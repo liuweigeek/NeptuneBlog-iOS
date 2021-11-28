@@ -49,7 +49,7 @@ struct SearchView: View {
                             NavigationLink(
                                 destination: LazyView(TweetDetailView(tweet: tweet)),
                                 label: {
-                                    TweetCell(tweet: tweet)
+                                    TweetCellView(tweet: tweet)
                                 }
                             )
                         }

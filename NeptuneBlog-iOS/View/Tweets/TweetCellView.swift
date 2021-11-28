@@ -1,5 +1,5 @@
 //
-//  TweetCell.swift
+//  TweetCellView.swift
 //  Twitter Clone
 //
 //  Created by Scott Lau on 2021/5/5.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct TweetCell: View {
+struct TweetCellView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
