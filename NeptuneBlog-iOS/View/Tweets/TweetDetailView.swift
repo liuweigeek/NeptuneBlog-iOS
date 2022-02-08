@@ -46,6 +46,7 @@ struct TweetDetailView: View {
             }
             
             Text(tweet.text)
+                .multilineTextAlignment(.leading)
                 .font(.system(size: 22))
             
             Text(tweet.detailedTimestampString)

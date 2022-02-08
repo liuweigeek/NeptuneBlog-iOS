@@ -65,6 +65,7 @@ struct TweetCellView: View {
                     }
                     
                     Text(tweet.text)
+                        .multilineTextAlignment(.leading)
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                         .font(.system(size: 16))
                 }
