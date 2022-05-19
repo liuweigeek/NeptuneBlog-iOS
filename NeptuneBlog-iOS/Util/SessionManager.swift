@@ -34,7 +34,6 @@ class JwtTokenAdapter: RequestInterceptor {
             return
         }
         urlRequest.setValue(token, forHTTPHeaderField: "authorization")
-        
         completion(.success(urlRequest))
     }
     
