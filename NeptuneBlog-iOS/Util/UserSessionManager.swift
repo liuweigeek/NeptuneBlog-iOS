@@ -11,13 +11,11 @@ class UserSessionManager: ObservableObject {
     
     static let shared = UserSessionManager()
     private let userDefaults = UserDefaults.standard
-    private var token: String?
     
     @Published var user: AuthUser?
     
     init() {
         user = getCurrentUser()
-        token = getToken()
     }
     
     private func getCurrentUser() -> AuthUser? {
@@ -49,14 +47,12 @@ class UserSessionManager: ObservableObject {
         }
         DispatchQueue.main.async {
             self.user = user
-            self.token = user.token
         }
     }
     
     func removeUser() {
         DispatchQueue.main.async {
             self.user = nil
-            self.token = nil
         }
         self.userDefaults.removeObject(forKey: Constant.AUTH_USER_KEY)
     }
