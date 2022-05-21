@@ -59,7 +59,6 @@ struct SearchView: View {
                 .padding(.bottom)
             }
         }
-        .navigationBarTitle("搜索")
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("\(errorMessage)"), dismissButton: .default(Text("好的")))
         }

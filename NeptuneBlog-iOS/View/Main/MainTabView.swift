@@ -35,8 +35,6 @@ struct MainTabView: View {
                 }
                 .tag(1)
         }
-        .navigationBarTitle("主页")
-        .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(leading: Button(action: {}, label: {
             if let user = userSessionManager.user {
                 NavigationLink(
